@@ -33,11 +33,11 @@
     <!-- To Buy List -->
     <div class="col-md-6">
      <h2>To Buy:</h2>
-     <ul ng-controller='ToBuyController as buyList' >
+     <ul ng-controller='ToBuyController as buy' >
        <!--
        <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>-->
-       <li ng-repeat="item in toBuyList">
+       <li ng-repeat="item in buy.items">
          Buy {{item.quantity}} {{item.name}} <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button>
        </li>
      </ul>
