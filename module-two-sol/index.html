@@ -26,34 +26,41 @@
   </head>
 <body>
   <div class="container">
-  <h1>Shopping List Check Off</h1>
+    <h1>Shopping List Check Off</h1>
 
-  <div class="row">
+    <div class="row">
 
-    <!-- To Buy List -->
-    <div class="col-md-6">
-     <h2>To Buy:</h2>
-     <ul ng-controller='ToBuyController as buy' >
-       <!--
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>-->
-       <li ng-repeat="item in buy.items">
-         Buy {{item.quantity}} {{item.name}} <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button>
-       </li>
-     </ul>
-     <div class="emptyMessage">Everything is bought!</div>
-    </div>
+      <!--Define ToBuy ng-cotroller here-->
+      <div ng-controller='ToBuyController as buy' class="col-md-6">
+       <h2>To Buy:</h2>
+       <ul>
+         <!--add ng-repeat to print out the array of items and pass $index in the remove method-->
+         <li ng-repeat="item in buy.originalItems">
+             Buy {{item.quantity}} {{item.name}}
+            <button ng-click="buy.removeItem($index);" class="btn btn-default">
+            <span class="glyphicon glyphicon-ok"></span> Bought
+            </button>
+         </li>
+       </ul>
+       <!--Fix error where ng if has to be used under the scope of the ng controller
+           this message shows when everything in the array is not there, meaning length == 0-->
+       <div ng-if="buy.originalItems.length == 0" class="emptyMessage">Everything is bought!</div>
+      </div>
 
-    <!-- Already Bought List -->
-    <div ng-controller='AlreadyBoughtController as boughtList' class="col-md-6">
-     <h2>Already Bought:</h2>
-     <ul>
-       <li>Bought 10 cookies</li>
-     </ul>
-     <div class="emptyMessage">Nothing bought yet.</div>
+      <!--Define AlreadyBought ng-cotroller here-->
+      <div ng-controller='AlreadyBoughtController as bought' class="col-md-6">
+       <h2>Already Bought:</h2>
+       <ul>
+         <!--Print out the items that have been bought-->
+         <li ng-repeat="item in bought.boughtItems">
+           Bought {{item.quantity}} {{item.name}}
+         </li>
+       </ul>
+       <!--When nothing has been bought, display the message-->
+       <div class="emptyMessage" ng-if='bought.boughtItems.length == 0'>Nothing bought yet.</div>
+      </div>
     </div>
   </div>
-</div>
 
 </body>
 </html>
